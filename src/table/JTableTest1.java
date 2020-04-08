@@ -7,12 +7,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -48,46 +48,43 @@ public class JTableTest1 extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+				new Object[][] {
+					{"hong", "24"},
+					{"park", "25"},
+					{"kim", "26"},
+				},
+				new String[] {"\uC774\uB984", "\uB098\uC774"}
+		));
+		JButton btnNewButton = new JButton("출력");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//table 내용을 가져와서 출력하기
+				
+				//① 모델 가져오기
+				TableModel model=table.getModel();
+				System.out.println("이름\t나이");
+				//② 모델의 내용 출력하기
+				for(int i=0;i<model.getRowCount();i++) {
+					for(int j=0;j<model.getColumnCount();j++) {
+						System.out.print(model.getValueAt(i, j)+"\t");
+					}
+					System.out.println();
+				}
+			}
+		});
+		btnNewButton.setFont(new Font("굴림", Font.PLAIN, 18));
 		contentPane.add(btnNewButton, BorderLayout.SOUTH);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"hong", "24"},
-				{"park", "26"},
-				{"kim", "28"},
-			},
-			new String[] {
-				"\uC774\uB984", "\uB098\uC774"
-			}
-		));
-		
-		
-		JButton btnNewButton = new JButton("출력");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//  table 내용을 가져와서 출력하기
-				
-				//  1. 모델 가져오기
-				TableModel model = table.getModel();
-				System.out.println("이름\t나이");
-				
-				// 2. 모델의 내용 출력하기
-				for (int i=0; i<model.getColumnCount(); i++) {
-					System.out.println(model.getValueAt(i, j)+"\t");
-				}
-				System.out.println();
-			}
-			
-		});
-		contentPane.add(btnNewButton, BorderLayout.SOUTH);
-		JScrollPane scrollPane = new JScrollPane();
-		contentPane.add(scrollPane, BorderLayout.CENTER);	
-		
 		scrollPane.setViewportView(table);
 	}
 
 }
+
+
+
+

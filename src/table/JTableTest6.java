@@ -5,12 +5,13 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
 
-public class JTableTest2 extends JFrame {
+public class JTableTest6 extends JFrame {
 
 	private JPanel contentPane;
 
@@ -18,7 +19,7 @@ public class JTableTest2 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JTableTest2 frame = new JTableTest2();
+					JTableTest6 frame = new JTableTest6();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -26,49 +27,48 @@ public class JTableTest2 extends JFrame {
 			}
 		});
 	}
-	public JTableTest2() {
+
+	public JTableTest6() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 130);
+		setTitle("MyTable");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
 		JTable table = new JTable(new MyTableModel());
-		JScrollPane pane = new JScrollPane(table);
-		add(pane);
+		JScrollPane scrollPane = new JScrollPane(table);		
+		contentPane.add(scrollPane);		
 	}
-	//사용자 정의 테이블 모델
+	
 	class MyTableModel extends AbstractTableModel{
-		//컬럼명
-		private String[] columnName= {"First Name","Last Name",
-				"Sport","# of Years","Vegetarian"};
-		//보여줄 데이터
-		private Object[][] data= {
-				{"Kathy","Smith","Snowboarding",new Integer(5),new Boolean(false)},
-				{"John","Doe","Rowing",new Integer(3),new Boolean(true)},
-				{"Sue","Black","Knitting",new Integer(2),new Boolean(false)},
-				{"Jane","White","Speed reading",new Integer(20),new Boolean(true)},
-				{"Joe","Brown","Pool",new Integer(10),new Boolean(false)},
-		};
+		private String[] columnNames= {"First Name","Last Name",
+                "Sport","# of Years","Vegetarian"};
+		
+		private Object[][] data = {
+		        {"Kathy", "Smith", "Snowboarding", new Integer(5), new Boolean(false)},
+		        {"John", "Doe","Rowing", new Integer(3), new Boolean(true)},
+		        {"Sue", "Black","Knitting", new Integer(2), new Boolean(false)},
+		        {"Jane", "White","Speed reading", new Integer(20), new Boolean(true)},
+		        {"Joe", "Brown","Pool", new Integer(10), new Boolean(false)}
+		        };
+		
 		@Override
 		public int getRowCount() {			
 			return data.length;
 		}
 		@Override
 		public int getColumnCount() {			
-			return columnName.length;
+			return columnNames.length;
 		}
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {			
 			return data[rowIndex][columnIndex];
-		}		
+		}
 		@Override
-		public String getColumnName(int column) {			
-			return columnName[column];
-		}	
-		
-		//컬럼 수정 여부
+		public String getColumnName(int column) {		
+			return columnNames[column];
+		}			
 		@Override
 		public boolean isCellEditable(int rowIndex, int columnIndex) {
 			if(columnIndex < 2) {
@@ -77,23 +77,10 @@ public class JTableTest2 extends JFrame {
 				return true;
 			}			
 		}
-		
+		//true / false로 나오는 부분 체크박스로 나오게 만들기
 		public Class getColumnClass(int c) {
 			return getValueAt(0, c).getClass();
-		}
-		
+		}				
 	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
