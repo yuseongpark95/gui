@@ -180,6 +180,7 @@ public class MemberTable extends JFrame implements ActionListener{
 		
 		//memberTBL의 전체 내용 가져오기		
 		table_1 = new JTable(getModel());
+		textField_3.setText("");
 		list();
 		scrollPane.setViewportView(table_1);	
 		
@@ -248,6 +249,7 @@ public class MemberTable extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(this, "삭제성공");
 				//모델이 가지고 있었던 데이터 초기화
 				model.setNumRows(0);
+				
 				list();
 			}else { //실패
 				JOptionPane.showMessageDialog(this, "삭제실패");
